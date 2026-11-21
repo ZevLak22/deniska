@@ -1,14 +1,27 @@
 {
-  "name": "Deniska – španělština",
-  "short_name": "Deniska",
+  "name": "Španělština s Deniskou",
+  "short_name": "Španělština",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#FFF7FA",
   "theme_color": "#FFF5F8",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
