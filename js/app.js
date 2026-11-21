@@ -75,7 +75,9 @@
   function esVoice() {
     if (!voices.length) loadVoices();
     const es = voices.filter(v => /^es[-_]ES/i.test(v.lang));
-    return es.find(v => /m[oó]nica/i.test(v.name)) || es.find(v => v.localService) || es[0] || voices.find(v => /^es/i.test(v.lang));
+    const better = v => /premium|enhanced|vylepšen|natural|neural/i.test(v.name + ' ' + v.voiceURI);
+    const fem = v => /m[oó]nica|marisol|paulina|elvira|helena|lucia/i.test(v.name);
+    return es.find(v => better(v) && fem(v)) || es.find(better) || es.find(fem) || es.find(v => v.localService) || es[0] || voices.find(v => /^es/i.test(v.lang));
   }
   function say(text, slow) {
     if (!state.settings.sound || !('speechSynthesis' in window)) return;
