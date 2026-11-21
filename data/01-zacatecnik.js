@@ -1,0 +1,122 @@
+window.COURSE_TOPICS = window.COURSE_TOPICS || [];
+COURSE_TOPICS.push({
+  id: 'zacatecnik', title: 'Začátečník', subtitle: 'Úplné základy španělštiny', emoji: '🌱',
+  color: 'linear-gradient(135deg,#FF8DBA,#FF5C97)',
+  lessons: [
+    {
+      title: 'Ahoj a nashle',
+      tip: 'Ve španělštině se **h** nevyslovuje! Takže **hola** čteš jako „ola“. 🤫\n\nOtázky a zvolání mají znaménko i na začátku, a to vzhůru nohama: **¡Hola!** a **¿Qué tal?**',
+      words: [['hola', 'ahoj'], ['adiós', 'nashle|nashledanou'], ['buenos días', 'dobré ráno|dobrý den'], ['buenas noches', 'dobrou noc|dobrý večer'], ['gracias', 'děkuji|díky'], ['mamá', 'máma|mami'], ['papá', 'táta|tati']],
+      sentences: [['¡Hola, mamá!', 'Ahoj, mami!'], ['Buenos días, papá.', 'Dobré ráno, tati.'], ['Adiós y gracias.', 'Nashle a díky.'], ['Buenas noches, mamá.', 'Dobrou noc, mami.']],
+    },
+    {
+      title: 'Představení',
+      tip: '**Me llamo…** znamená doslova „jmenuji se…“.\n\nDvojité **ll** se čte jako „j“: **llamo** = „jamo“.\n\nA **¿Cómo te llamas?** = Jak se jmenuješ?',
+      words: [['me llamo', 'jmenuji se'], ['¿cómo te llamas?', 'jak se jmenuješ?'], ['yo', 'já'], ['tú', 'ty'], ['sí', 'ano'], ['no', 'ne'], ['mucho gusto', 'těší mě']],
+      sentences: [['Hola, me llamo Lucía.', 'Ahoj, jmenuji se Lucía.'], ['¿Cómo te llamas?', 'Jak se jmenuješ?'], ['Yo me llamo Carlos.', 'Já se jmenuji Carlos.'], ['Mucho gusto, Carlos.', 'Těší mě, Carlosi.'], ['Sí, gracias.', 'Ano, děkuji.']],
+    },
+    {
+      title: 'Jak se máš?',
+      tip: '**¿Qué tal?** je super univerzální: „Jak je?“ nebo „Jak se máš?“.\n\nOdpovědět můžeš **bien** (dobře), **muy bien** (moc dobře) nebo **mal** (špatně).',
+      words: [['¿qué tal?', 'jak se máš?|jak je?'], ['bien', 'dobře'], ['muy', 'moc|velmi'], ['mal', 'špatně'], ['¿y tú?', 'a ty?'], ['también', 'také|taky'], ['hasta luego', 'zatím ahoj|na shledanou']],
+      sentences: [['Hola, ¿qué tal?', 'Ahoj, jak se máš?'], ['Muy bien, gracias.', 'Moc dobře, děkuji.'], ['Bien, ¿y tú?', 'Dobře, a ty?'], ['Yo también, gracias.', 'Já také, děkuji.'], ['Hasta luego, papá.', 'Zatím ahoj, tati.']],
+    },
+    {
+      title: 'Čísla 0–10',
+      tip: 'Čísla se hodí všude – na trhu, v telefonu i v restauraci. 🔢\n\nPozor: **z** se ve Španělsku čte jako anglické „th“: **cero** a **doce** se čtou s jemným šišláním.',
+      words: [['cero', 'nula'], ['uno', 'jedna'], ['dos', 'dva'], ['tres', 'tři'], ['cuatro', 'čtyři'], ['cinco', 'pět'], ['seis', 'šest'], ['siete', 'sedm'], ['ocho', 'osm'], ['nueve', 'devět'], ['diez', 'deset']],
+      sentences: [['Uno, dos, tres.', 'Jedna, dva, tři.'], ['Cuatro y cinco.', 'Čtyři a pět.'], ['Siete, ocho, nueve.', 'Sedm, osm, devět.'], ['Diez, gracias.', 'Deset, děkuji.']],
+    },
+    {
+      title: 'Ten a ta',
+      tip: 'Každé podstatné jméno je ve španělštině buď **mužského**, nebo **ženského** rodu.\n\n**el** = ten (mužský rod) → el chico\n**la** = ta (ženský rod) → la chica\n\n**un / una** = nějaký / nějaká.\nTip: slova na **-o** jsou většinou mužská, na **-a** ženská.',
+      words: [['el chico', 'kluk'], ['la chica', 'holka'], ['el hombre', 'muž'], ['la mujer', 'žena'], ['el perro', 'pes'], ['el gato', 'kočka|kocour'], ['un', 'nějaký|jeden'], ['una', 'nějaká|jedna']],
+      sentences: [['El chico y la chica.', 'Kluk a holka.'], ['Un perro y un gato.', 'Pes a kočka.'], ['Hola, chica.', 'Ahoj, holka.'], ['La mujer y el hombre.', 'Žena a muž.'], ['Una chica y un chico.', 'Jedna holka a jeden kluk.']],
+    },
+    {
+      title: 'Barvy',
+      tip: 'Barva se ve španělštině dává **za** podstatné jméno: **el gato negro** = černá kočka (doslova „kočka černá“). 🎨\n\nBarvy na **-o** se mění podle rodu: el gato negr**o**, la casa negr**a**.',
+      words: [['rojo', 'červený'], ['azul', 'modrý'], ['verde', 'zelený'], ['amarillo', 'žlutý'], ['negro', 'černý'], ['blanco', 'bílý'], ['rosa', 'růžový'], ['el color', 'barva']],
+      sentences: [['El perro es negro.', 'Pes je černý.'], ['El gato es blanco.', 'Kočka je bílá.'], ['Rosa y azul.', 'Růžová a modrá.'], ['Rojo y amarillo.', 'Červená a žlutá.'], ['El color verde.', 'Zelená barva.']],
+    },
+    {
+      title: 'Rodina',
+      tip: '**mi** = můj / moje. Funguje pro oba rody: **mi** padre, **mi** madre. 👨‍👩‍👧\n\n**los padres** = rodiče. **los hermanos** = sourozenci.',
+      words: [['la familia', 'rodina'], ['la madre', 'matka'], ['el padre', 'otec'], ['la hermana', 'sestra|ségra'], ['el hermano', 'bratr|brácha'], ['la abuela', 'babička'], ['el abuelo', 'dědeček|děda'], ['mi', 'můj|moje']],
+      sentences: [['Mi familia.', 'Moje rodina.'], ['Mi hermano se llama David.', 'Můj bratr se jmenuje David.'], ['Mi madre y mi padre.', 'Moje matka a můj otec.'], ['Hola, abuela.', 'Ahoj, babičko.'], ['Mi abuelo es muy bueno.', 'Můj děda je moc hodný.']],
+    },
+    {
+      title: 'Já jsem, ty jsi',
+      tip: 'Sloveso **ser** = být (kdo nebo jaký jsem).\n\n**yo soy** = já jsem\n**tú eres** = ty jsi\n**él / ella es** = on / ona je\n\nZájmeno se často vynechává: **Soy Ana** = Jsem Ana.',
+      words: [['soy', 'jsem'], ['eres', 'jsi'], ['es', 'je'], ['él', 'on'], ['ella', 'ona'], ['alto', 'vysoký'], ['bajo', 'malý|nízký'], ['simpático', 'milý|sympatický']],
+      sentences: [['Yo soy Ana.', 'Já jsem Ana.'], ['Tú eres muy simpática.', 'Ty jsi moc milá.'], ['Él es alto.', 'On je vysoký.'], ['Ella es mi hermana.', 'Ona je moje sestra.'], ['Soy la hermana de David.', 'Jsem sestra Davida.']],
+    },
+    {
+      title: 'Odkud jsem',
+      tip: '**Soy de…** = Jsem z… 🌍\n\n**¿De dónde eres?** = Odkud jsi?\n\nNárodnosti se mění podle rodu: Pablo es españ**ol**, Ana es españ**ola**. Ty jsi **checa** (Češka)! 🇨🇿',
+      words: [['¿de dónde eres?', 'odkud jsi?'], ['soy de', 'jsem z'], ['España', 'Španělsko'], ['la República Checa', 'Česko|Česká republika'], ['checa', 'Češka'], ['española', 'Španělka'], ['México', 'Mexiko'], ['Praga', 'Praha']],
+      sentences: [['¿De dónde eres?', 'Odkud jsi?'], ['Soy de Praga.', 'Jsem z Prahy.'], ['Yo soy checa.', 'Já jsem Češka.'], ['Ella es española.', 'Ona je Španělka.'], ['Carlos es de México.', 'Carlos je z Mexika.']],
+    },
+    {
+      title: 'Popis',
+      tip: 'Přídavná jména se mění podle rodu a dávají se **za** podstatné jméno:\n\nel chico guap**o** → la chica guap**a**\n\nSlova na **-e** se nemění: el chico inteligent**e**, la chica inteligent**e**. ✨',
+      words: [['guapo', 'hezký|pěkný'], ['guapa', 'hezká|pěkná'], ['grande', 'velký'], ['pequeño', 'malý'], ['bonito', 'krásný|hezký'], ['inteligente', 'chytrý'], ['divertido', 'zábavný|vtipný'], ['nuevo', 'nový']],
+      sentences: [['La chica es guapa.', 'Holka je hezká.'], ['El perro es pequeño.', 'Pes je malý.'], ['Mi hermana es inteligente.', 'Moje sestra je chytrá.'], ['Un gato muy bonito.', 'Moc hezká kočka.'], ['Mi hermano es divertido.', 'Můj bratr je vtipný.']],
+    },
+    {
+      title: 'Čísla 11–100',
+      tip: 'Od 16 do 29 se čísla píšou dohromady: **dieciséis, veintiuno**. Od 31 se píše s **y**: **treinta y dos** = 32. 🔢',
+      words: [['once', 'jedenáct'], ['doce', 'dvanáct'], ['quince', 'patnáct'], ['veinte', 'dvacet'], ['treinta', 'třicet'], ['cincuenta', 'padesát'], ['cien', 'sto'], ['el número', 'číslo']],
+      sentences: [['Veinte y treinta.', 'Dvacet a třicet.'], ['El número quince.', 'Číslo patnáct.'], ['Treinta y dos.', 'Třicet dva.'], ['Cincuenta y cinco.', 'Padesát pět.'], ['Cien, gracias.', 'Sto, děkuji.']],
+    },
+    {
+      title: 'Dny v týdnu',
+      tip: 'Dny se píšou **malým** písmenem. 📅\n\n**el lunes** = v pondělí (člen funguje jako „v“).\n**hoy** = dnes, **mañana** = zítra.',
+      words: [['el lunes', 'pondělí'], ['el martes', 'úterý'], ['el miércoles', 'středa'], ['el jueves', 'čtvrtek'], ['el viernes', 'pátek'], ['el sábado', 'sobota'], ['el domingo', 'neděle'], ['hoy', 'dnes'], ['mañana', 'zítra']],
+      sentences: [['Hoy es lunes.', 'Dnes je pondělí.'], ['Mañana es viernes.', 'Zítra je pátek.'], ['El sábado y el domingo.', 'Sobota a neděle.'], ['¿Hoy es jueves?', 'Je dnes čtvrtek?'], ['No, hoy es miércoles.', 'Ne, dnes je středa.']],
+    },
+    {
+      title: 'Měsíce a datum',
+      tip: 'Měsíce se taky píšou **malým**: enero, febrero… 🗓️\n\nDatum: **el cinco de mayo** = pátého května.\n**el cumpleaños** = narozeniny.',
+      words: [['enero', 'leden'], ['marzo', 'březen'], ['mayo', 'květen'], ['julio', 'červenec'], ['agosto', 'srpen'], ['diciembre', 'prosinec'], ['el mes', 'měsíc'], ['el cumpleaños', 'narozeniny']],
+      sentences: [['Mi cumpleaños es en mayo.', 'Moje narozeniny jsou v květnu.'], ['Hoy es el cinco de marzo.', 'Dnes je pátého března.'], ['Julio y agosto.', 'Červenec a srpen.'], ['Diciembre es mi mes.', 'Prosinec je můj měsíc.']],
+    },
+    {
+      title: 'Mít a věk',
+      tip: 'Věk se ve španělštině „má“! 🎂\n\n**Tengo veinte años** = Je mi dvacet (doslova „mám dvacet let“).\n\n**tengo** = mám, **tienes** = máš, **tiene** = má.',
+      words: [['tengo', 'mám'], ['tienes', 'máš'], ['tiene', 'má'], ['el año', 'rok'], ['¿cuántos años tienes?', 'kolik ti je?'], ['el amigo', 'kamarád'], ['la amiga', 'kamarádka']],
+      sentences: [['Tengo veinte años.', 'Je mi dvacet let.'], ['¿Cuántos años tienes?', 'Kolik ti je?'], ['Tengo un perro.', 'Mám psa.'], ['Ella tiene un gato.', 'Ona má kočku.'], ['Tengo una amiga española.', 'Mám španělskou kamarádku.']],
+    },
+    {
+      title: 'Množné číslo',
+      tip: 'Množné číslo je snadné:\n\nslovo na samohlásku + **s**: chico → chico**s**\nslovo na souhlásku + **es**: color → color**es**\n\nČleny: el → **los**, la → **las**. 👯',
+      words: [['los chicos', 'kluci'], ['las chicas', 'holky'], ['los amigos', 'kamarádi'], ['las casas', 'domy'], ['los perros', 'psi'], ['los colores', 'barvy'], ['dos gatos', 'dvě kočky']],
+      sentences: [['Los chicos son altos.', 'Kluci jsou vysocí.'], ['Las chicas son simpáticas.', 'Holky jsou milé.'], ['Tengo dos gatos.', 'Mám dvě kočky.'], ['Los perros son negros.', 'Psi jsou černí.'], ['Los amigos son de España.', 'Kamarádi jsou ze Španělska.']],
+    },
+    {
+      title: 'Mluvím, pracuji',
+      tip: 'Slovesa na **-ar** se časují takhle (hablar = mluvit):\n\nyo habl**o** – mluvím\ntú habl**as** – mluvíš\nél/ella habl**a** – mluví\nnosotros habl**amos** – mluvíme\n\nStejně: trabajar, estudiar, escuchar. 💬',
+      words: [['hablo', 'mluvím'], ['hablas', 'mluvíš'], ['trabajo', 'pracuji'], ['estudio', 'studuji|učím se'], ['escucho', 'poslouchám'], ['el español', 'španělština'], ['el inglés', 'angličtina'], ['un poco', 'trochu']],
+      sentences: [['Hablo un poco de español.', 'Mluvím trochu španělsky.'], ['¿Hablas inglés?', 'Mluvíš anglicky?'], ['Estudio español.', 'Učím se španělsky.'], ['Mi padre trabaja mucho.', 'Můj táta hodně pracuje.'], ['Escucho música.', 'Poslouchám hudbu.']],
+    },
+    {
+      title: 'Otázky',
+      tip: 'Tázací slova mají vždy **čárku**: **qué, dónde, quién, cuándo, cómo**. ❓\n\nA nezapomeň na obrácený otazník na začátku: **¿Dónde está?**',
+      words: [['¿qué?', 'co?'], ['¿dónde?', 'kde?'], ['¿quién?', 'kdo?'], ['¿cuándo?', 'kdy?'], ['¿cómo?', 'jak?'], ['¿por qué?', 'proč?'], ['porque', 'protože']],
+      sentences: [['¿Qué es?', 'Co je to?'], ['¿Quién es él?', 'Kdo je on?'], ['¿Dónde está mamá?', 'Kde je máma?'], ['¿Cuándo es tu cumpleaños?', 'Kdy máš narozeniny?'], ['¿Por qué estudias español?', 'Proč se učíš španělsky?']],
+    },
+    {
+      title: 'Kolik je hodin',
+      tip: '**¿Qué hora es?** = Kolik je hodin? ⏰\n\n**Es la una** = je jedna (jen u jedné!)\n**Son las tres** = jsou tři\n**y media** = a půl → **Son las dos y media** = je půl třetí.',
+      words: [['¿qué hora es?', 'kolik je hodin?'], ['la hora', 'hodina|čas'], ['es la una', 'je jedna'], ['son las dos', 'jsou dvě'], ['y media', 'a půl'], ['y cuarto', 'a čtvrt'], ['la mañana', 'ráno|dopoledne'], ['la noche', 'noc|večer']],
+      sentences: [['¿Qué hora es?', 'Kolik je hodin?'], ['Son las tres.', 'Jsou tři.'], ['Es la una y media.', 'Je půl druhé.'], ['Son las ocho de la mañana.', 'Je osm ráno.'], ['Son las diez de la noche.', 'Je deset večer.']],
+    },
+    {
+      title: 'Kde jsem a jak se cítím',
+      tip: 'Španělština má **dvě** slovesa „být“! 🤯\n\n**ser** – kdo nebo jaký jsi natrvalo: Soy alta.\n**estar** – kde jsi a jak se zrovna cítíš: **Estoy** en casa. **Estoy** cansada.\n\nestoy, estás, está = jsem, jsi, je.',
+      words: [['estoy', 'jsem (teď)'], ['estás', 'jsi (teď)'], ['está', 'je (teď)'], ['en casa', 'doma'], ['cansada', 'unavená'], ['contenta', 'spokojená|šťastná'], ['triste', 'smutný|smutná'], ['aquí', 'tady']],
+      sentences: [['Estoy en casa.', 'Jsem doma.'], ['Estoy muy cansada.', 'Jsem moc unavená.'], ['¿Cómo estás?', 'Jak se máš?'], ['Hoy estoy contenta.', 'Dnes jsem spokojená.'], ['Mi perro está aquí.', 'Můj pes je tady.']],
+    },
+    { title: 'Zkouška: Začátečník', exam: true },
+  ],
+});
