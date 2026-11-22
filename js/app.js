@@ -624,53 +624,69 @@
     }));
   }
 
-  let recog = null;
+  let recog = null, recogDone = null;
+  function killRecog() {
+    const r = recog; recog = null;
+    if (r) { r.onresult = r.onerror = r.onend = r.onstart = r.onaudiostart = null; try { r.abort(); } catch (e) {} }
+  }
+  function micFailed(msg) {
+    // mikrofon v tomhle prostředí nefunguje → vypnout mluvení, ať se appka nikdy nezasekne
+    killRecog(); micBroken = true; state.settings.mic = false; save();
+    const b = $('#micBtn'); if (b) b.classList.remove('rec');
+    skipMic(msg || 'Mikrofon tady nefunguje, tak mluvení vypínám. Dá se zase zapnout v ⚙️ Nastavení.');
+  }
   function bindSpeak(ex) {
     const it = ex.item;
     let attempts = 0;
     const heard = $('#heard'), btn = $('#micBtn');
+    // tlačítko dole je aktivní vždycky – z cvičení se dá kdykoliv odejít
+    setReady(true); $('#checkBtn').textContent = 'Přeskočit'; R.cur.speakSkip = true;
     say(it.es);
     btn.addEventListener('click', () => {
       if (R.cur.answered) return;
-      if (recog) { try { recog.stop(); } catch (e) {} return; }
+      if (recog) { if (recogDone) recogDone(); return; }
       const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SR) { micBroken = true; return skipMic('Mikrofon tady nefunguje, přeskočíme to.'); }
+      if (!SR) return micFailed();
       try { speechSynthesis.cancel(); } catch (e) {}
-      recog = new SR();
-      recog.lang = 'es-ES'; recog.interimResults = true; recog.maxAlternatives = 3; recog.continuous = false;
-      let best = '', bestSim = 0;
-      btn.classList.add('rec'); heard.innerHTML = 'Poslouchám… 👂';
-      recog.onresult = e => {
-        for (let i = 0; i < e.results.length; i++) {
-          for (let j = 0; j < e.results[i].length; j++) {
-            const t = e.results[i][j].transcript; const s = similarity(t, it.es);
-            if (s >= bestSim) { bestSim = s; best = t; }
-          }
-        }
-        heard.innerHTML = 'Slyším: <b>' + esc(best) + '</b>';
-      };
-      recog.onerror = e => {
-        if (e.error === 'not-allowed' || e.error === 'service-not-allowed' || e.error === 'audio-capture') {
-          micBroken = true; recog = null; btn.classList.remove('rec');
-          skipMic('Mikrofon nemá povolení. Dá se zapnout v Nastavení iPhonu → Safari → Mikrofon. Teď to přeskočíme.');
-        }
-      };
-      recog.onend = () => {
-        btn.classList.remove('rec'); recog = null;
-        if (R.cur.answered) return;
+      let best = '', bestSim = 0, started = false, finished = false;
+      const r = new SR(); recog = r;
+      r.lang = 'es-ES'; r.interimResults = true; r.maxAlternatives = 3; r.continuous = false;
+      btn.classList.add('rec'); heard.innerHTML = 'Poslouchám… 👂 <br><small>(klepni znovu, až domluvíš)</small>';
+      const finish = () => {
+        if (finished) return; finished = true;
+        clearTimeout(startGuard); clearTimeout(hardStop); recogDone = null;
+        killRecog(); btn.classList.remove('rec');
+        if (R.cur.answered || R.cur.ex !== ex) return;
         attempts++;
         if (bestSim >= 0.62) {
-          R.cur.answered = true; R.correct++; R.answers++; R.progress++;
+          R.cur.answered = true; R.cur.speakSkip = false; R.correct++; R.answers++; R.progress++;
           sfx.ok(); showFeedback(true, null, bestSim > 0.9 ? 'Perfektní výslovnost! 🌟' : 'Dobře! Rozumím ti. 👍');
-        } else if (best) {
-          sfx.bad(); heard.innerHTML = `Slyším: <b>${esc(best)}</b><br>Ještě jednou, pomaleji 🙂`;
-          if (attempts >= 2) { setReady(true); $('#checkBtn').textContent = 'Nevadí, pokračovat'; R.cur.speakSkip = true; }
-        } else {
-          heard.innerHTML = 'Nic jsem neslyšela. Zkus to znovu 🙂';
-          if (attempts >= 2) { setReady(true); $('#checkBtn').textContent = 'Nevadí, pokračovat'; R.cur.speakSkip = true; }
+          return;
         }
+        if (best) { sfx.bad(); heard.innerHTML = `Slyším: <b>${esc(best)}</b><br>Ještě jednou, pomaleji 🙂`; }
+        else heard.innerHTML = 'Nic jsem neslyšela. Zkus to znovu 🙂';
+        if (attempts >= 2) $('#checkBtn').textContent = 'Nevadí, pokračovat';
       };
-      try { recog.start(); } catch (e) { recog = null; btn.classList.remove('rec'); micBroken = true; skipMic('Mikrofon se nepodařilo spustit, přeskočíme to.'); }
+      recogDone = finish;
+      r.onstart = r.onaudiostart = () => { started = true; };
+      r.onresult = e => {
+        started = true;
+        for (let i = 0; i < e.results.length; i++) for (let j = 0; j < e.results[i].length; j++) {
+          const t = e.results[i][j].transcript; const sim = similarity(t, it.es);
+          if (sim >= bestSim) { bestSim = sim; best = t; }
+        }
+        heard.innerHTML = 'Slyším: <b>' + esc(best) + '</b>';
+        if (bestSim >= 0.9) finish();
+      };
+      r.onerror = e => {
+        if (['not-allowed', 'service-not-allowed', 'audio-capture'].includes(e.error)) return micFailed('Mikrofon nemá povolení, tak mluvení vypínám. Zapnout se dá v ⚙️ Nastavení.');
+        finish();
+      };
+      r.onend = finish;
+      // pojistky proti zaseknutí (iPhone appka na ploše někdy mikrofon vůbec nespustí)
+      const startGuard = setTimeout(() => { if (!started && !finished) { finished = true; micFailed(); } }, 4000);
+      const hardStop = setTimeout(finish, 9000);
+      try { r.start(); } catch (e) { clearTimeout(startGuard); clearTimeout(hardStop); finished = true; micFailed(); }
     });
   }
   function skipMic(msg) {
@@ -730,6 +746,7 @@
   }
 
   function next() {
+    killRecog();
     const ex = R.cur && R.cur.ex;
     if (ex && (ex.t === 'tip' || ex.t === 'intro' || ex.t === 'pairs')) { R.progress++; if (ex.t === 'pairs') { R.answers++; if (R.cur.pairsOk) R.correct++; } }
     if (ex && ex.t === 'speak' && R.cur.speakSkip && !R.cur.answered) { R.progress++; }
@@ -925,7 +942,7 @@
     say: (d, el) => say(d.t, !!d.slow),
     next: () => { if ($('#checkBtn') && $('#checkBtn').disabled && !$('.feedback')) return; next(); },
     check: () => doCheck(),
-    skipmic: () => { state.micOffUntil = Date.now() + 60 * 60 * 1000; save(); skipMic(); },
+    skipmic: () => { killRecog(); state.micOffUntil = Date.now() + 60 * 60 * 1000; save(); skipMic(); },
     quit: () => {
       if (R && R.mode === 'practice') { R = null; return go({ name: 'home', tab: 'practice' }); }
       openModal(`<div class="sheet" style="text-align:center">${D.svg({ stage: stageIdx(), wear: state.wear, mood: 'sad', cls: '' }).replace('<svg', '<svg style="width:120px"')}
